@@ -49,9 +49,8 @@ const LoginPage = () => {
         try {
             dispatch(postData(data));
         } catch (error) {
-            console.error("An error occurred:", error);
+            console.error("While requesting postData, an error occurred:", error);
         }
-
     };
 
     return (
