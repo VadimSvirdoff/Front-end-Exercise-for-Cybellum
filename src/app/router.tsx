@@ -15,14 +15,16 @@ const routes = [
 
 const AppRoutes = () => {
     const user = useSelector(selectUser);
-    // const isAuth = user?.token;
-    const isAuth = true;
+    const isAuth = !!user;
 
     return (
         <BrowserRouter>
             <Routes>
                 {routes.map(({ element, path, privat }, id) => {
-                    return <Route path={path} element={privat && !isAuth ? <Navigate to="/login" /> : element} key={id} />
+                    if (privat) {
+                        return <Route path={path} element={!isAuth ? <Navigate to="/login" /> : element} key={id} />
+                    }
+                    return <Route path={path} element={element} key={id} />
                 })}
             </Routes>
         </BrowserRouter>
