@@ -38,8 +38,8 @@ const LoginPage = () => {
     const onSubmit: SubmitHandler<UserInput> = (data) => {
         try {
             dispatch(postData(data))
-        } catch {
-
+        } catch(error) {
+            console.error("An error occurred:", error);
         }
 
     };
