@@ -17,14 +17,15 @@ export const postData = createAsyncThunk('postUser', async (data: UserInput) => 
     return responseData;
 });
 
-export const getData = createAsyncThunk('postUser', async (data: UserInput) => {
+export const getNotification = createAsyncThunk('getUsgetNotificationer', async (token: string) => {
 
-    const response = await fetch('http://localhost:7000/users', {
-        method: 'POST',
+
+    const response = await fetch('http://localhost:7000/notifications?id=1', {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
     });
     const responseData = await response.json();
     return responseData;
