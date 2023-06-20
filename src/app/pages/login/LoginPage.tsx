@@ -17,7 +17,9 @@ import Input from "../../components/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { postData } from "../../store/auth/api";
 import { AppDispatch } from "../../store";
-import { selectError } from "../../store/auth/selectors";
+import { selectError, selectUser } from "../../store/auth/selectors"
+import { useNavigate } from 'react-router-dom'; import { useEffect } from "react";
+;
 
 const validationSchema = yup.object().shape({
     email: yup.string().required("Email is required").email("Invalid email address"),
@@ -34,11 +36,19 @@ const LoginPage = () => {
     });
     const dispatch = useDispatch<AppDispatch>();
     const error = useSelector(selectError);
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user])
 
     const onSubmit: SubmitHandler<UserInput> = (data) => {
         try {
-            dispatch(postData(data))
-        } catch(error) {
+            dispatch(postData(data));
+        } catch (error) {
             console.error("An error occurred:", error);
         }
 
